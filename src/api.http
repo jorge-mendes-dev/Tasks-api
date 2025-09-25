@@ -1,0 +1,117 @@
+@baseUrl = http://localhost:4000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsImVtYWlsIjoiam9yZ2VAbWFpbC5jb20iLCJpYXQiOjE3NTg4NDAzMjgsImV4cCI6MTc1ODg0MzkyOH0.uUEA4I2edrh0pFYiW_Z0qa3pykhnRUw_1IMum8GJ5oc
+### Check server status
+GET {{baseUrl}}/
+
+
+GET {{baseUrl}}/about
+
+----
+
+### Register
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "jorge@mail.com",
+  "password": "123456"
+}
+
+### Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "jorge@mail.com",
+  "password": "123456"
+}
+
+
+### reset password
+POST {{baseUrl}}/auth/reset-password
+Content-Type: application/json
+
+{
+  "email": "bill@mail.com",
+  "oldPassword":"123456",
+  "newPassword": "123456789"
+
+}
+
+
+### List tasks (with JWT)
+GET {{baseUrl}}/tasks
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### Create a task
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Learn new programming language",
+  "description": "Play with code"
+}
+
+
+### Get all tasks
+GET {{baseUrl}}/tasks
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### Get one task
+GET {{baseUrl}}/tasks/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### Update task
+PATCH {{baseUrl}}/tasks/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "completed": true
+}
+
+
+### Delete task
+DELETE {{baseUrl}}/tasks/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### Advanced queries
+
+
+# default (page=1, limit=10)
+GET {{baseUrl}}/tasks
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+# page 2, 5 items per page
+GET {{baseUrl}}/tasks?page=2&limit=5
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+# search for "NestJS"
+GET {{baseUrl}}/tasks?search=NestJS
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+# completed true
+GET {{baseUrl}}/tasks?completed=true
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+# combine
+GET {{baseUrl}}/tasks?search=buy&completed=false&page=1&limit=5
+Content-Type: application/json
+Authorization: Bearer {{token}}
