@@ -1,5 +1,6 @@
 @baseUrl = http://localhost:4000
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsImVtYWlsIjoiam9yZ2VAbWFpbC5jb20iLCJpYXQiOjE3NTg4NDAzMjgsImV4cCI6MTc1ODg0MzkyOH0.uUEA4I2edrh0pFYiW_Z0qa3pykhnRUw_1IMum8GJ5oc
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiam9yZ2VAbWFpbC5jb20iLCJpYXQiOjE3NTg5MjkyMDcsImV4cCI6MTc1ODkzMjgwN30.mtSAjno7kFDGzxlhKxYlezLAkEv0dtBo0OdHtO-892Q
+
 ### Check server status
 GET {{baseUrl}}/
 
@@ -51,7 +52,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "title": "Learn new programming language",
+  "title": "Learn new things",
   "description": "Play with code"
 }
 

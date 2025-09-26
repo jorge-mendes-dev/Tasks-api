@@ -13,9 +13,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const appService = app.get(AppService);
   
-  if (process.env.NODE_ENV === 'development') {
+/*   if (process.env.NODE_ENV === 'development') {
     await appService.seed();
-  }
+  } */
 
   app.useGlobalPipes(
     new ValidationPipe({ 

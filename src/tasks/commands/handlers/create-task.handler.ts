@@ -28,10 +28,8 @@ export class CreateTaskHandler implements ICommandHandler<CreateTaskCommand> {
       });
 
     const saved = await queryRunner.manager.save(task);
-
-    this.eventBus.publish(new TaskCreatedEvent(saved.id, userId));
-
     await queryRunner.commitTransaction();
+    this.eventBus.publish(new TaskCreatedEvent(saved.id, userId));
     return saved;
     
     } catch (error) {
