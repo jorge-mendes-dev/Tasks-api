@@ -1,9 +1,10 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource } from 'typeorm';
 import { DeleteTaskCommand } from '../delete-task.command';
 import { Task } from '../../entities/task.entity';
 import { NotFoundException } from '@nestjs/common';
+import { TaskDeletedEvent } from '../../events/task-deleted.event';
 
 @CommandHandler(DeleteTaskCommand)
 export class DeleteTaskHandler implements ICommandHandler<DeleteTaskCommand> {
@@ -11,6 +12,7 @@ export class DeleteTaskHandler implements ICommandHandler<DeleteTaskCommand> {
     @InjectRepository(Task)
     private readonly taskRepository: Repository<Task>,
     private dataSource: DataSource,
+    private eventBus: EventBus,
   ) {}
 
   async execute(command: DeleteTaskCommand): Promise<void> {
@@ -29,6 +31,8 @@ export class DeleteTaskHandler implements ICommandHandler<DeleteTaskCommand> {
 
       await queryRunner.manager.delete(Task, id);
       await queryRunner.commitTransaction();
+
+      this.eventBus.publish(new TaskDeletedEvent(id));
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw error;
